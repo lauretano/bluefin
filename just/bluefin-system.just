@@ -102,6 +102,31 @@ configure-shell ACTION="":
       printf "${USER}'s shell is now %s.\n" "$(cat /etc/passwd | grep ":$UID:" | cut '-d:' '-f7')"
     fi
 
+alias theme := configure-theme
+
+# Switch to a different theme
+configure-theme ACTION="":
+    #!/bin/bash
+    source /usr/lib/ujust/ujust.sh
+    #TKTK read current theme options to process as needed later
+    OPTION={{ ACTION }}
+    if [ "$OPTION" == "help" ]; then
+      echo "Usage: ujust theme <option>"
+      echo "  <option>: Specify the quick option to skip the prompt"
+      echo "  Use 'bluefin' to select bluefin"
+      echo "  Use 'vanilla' to select vanilla"
+      exit 0
+    elif [ "$OPTION" == "" ]; then
+      echo "${bold}Theme configuration${normal}"
+      echo "${USER}'s theme is currently ${CURRENT_THEME}"
+      OPTION=$(Choose "bluefin" "vanilla")
+    fi
+    if [ -z "$OPTION" ]; then
+      exit 0
+    else
+      #TKTK set the new theme here reference the shell script
+    fi
+
 alias gnome-extensions := get-gnome-extensions
 
 # Install recommended GNOME extensions
